@@ -8,9 +8,18 @@ body {
   background-color: #fafbfd;
 }
 
+#dashboard-container {
+  display: flex;
+  flex-direction: column;
+}
+
 header, main {
   width: 100%;
   display: flex;
+}
+
+main {
+  flex-grow: 1;
 }
 
 header {
@@ -18,7 +27,8 @@ header {
   border-bottom: 1px solid #edeff3;
 }
 
-#brand, #page-panel {
+/* -------- Brand -------- */
+#brand {
   flex-basis: 16rem;
 }
 
@@ -30,6 +40,7 @@ header {
   color: #1e86ff;
   padding: 1rem 0 0 1rem;
 }
+/* -------- Brand -------- */
 
 ul { 
   list-style: none;
@@ -40,7 +51,29 @@ ul {
   height: 24px;
 }
 
-.link {
+#context-bar {
+  flex-grow: 1;
+  display: flex;
+  padding: 1rem 0 1rem 0;
+}
+
+/* -------- User Navigation -------- */
+#user-navigation {
+  display: flex;
+  flex-direction: row-reverse;
+  flex-grow: 1;
+}
+#user-navigation-links {
+  display: flex;
+  align-items: center;
+  margin: 0 2rem 0 0;
+}
+
+#user-navigation-links > * {
+  margin: 0 0 0 2rem;
+}
+
+#user-navigation-links .link {
   width: fit-content;
   font-size: 16px;
   display: flex;
@@ -50,7 +83,7 @@ ul {
   font-weight: bold;
 }
 
-button.link {
+#user-navigation-links button.link {
   padding: 0.5rem 1rem 0.5rem 1rem;
   height: fit-content;
   color: white;
@@ -59,37 +92,40 @@ button.link {
   border-radius: 4px;
 }
 
-#context-bar {
-  flex-grow: 1;
-  display: flex;
-  padding: 1rem 0 1rem 0;
-  margin: 0 0 1rem 0;
-}
-
-#search-bar, #user-navigation {
-  flex-grow: 1;
-}
-
-#user-navigation {
-  display: flex;
-  flex-direction: row-reverse;
-  
-}
-
-#user-navigation-links {
-  display: flex;
-  align-items: center;
-  margin: 0 2rem 0 0;
-}
-
-#user-navigation-links > * {
-  margin: 0 0 0 1.5rem;
-}
-
 #user-navigation-links > *:first-child {
   margin: 0;
 }
 
+#profile-icon {
+  height: 2.5rem;
+  border-radius: 2rem;
+  border: 1px solid #edeff3;
+}
+
+#user-name {
+  font-weight: bold;
+  color: #213b61;
+}
+
+#profile-icon,
+#user-name {
+  margin-right: 0.5rem;
+}
+
+#user-profile {
+  display: flex;
+  align-items: center;
+}
+
+#user-profile > .icon {
+  color: #9faabd;
+} 
+/* -------- User Navigation -------- */
+
+/* -------- Search -------- */
+#search-bar { 
+  flex-grow: 1;
+}
 #search-bar > input[type=text] {
   line-height: 1.5;
   margin: 0 0 0 3rem;
@@ -100,14 +136,16 @@ button.link {
   border-radius: 4px;
 }
 
+#search-bar > input[type=text]:focus {
+  outline-color: #1e86ff;
+}
+/* -------- Search -------- */
+
+/* -------- Page Navigation -------- */
 #page-navigation {
   width: 100%;
   display: flex;
   flex-direction: column;
-}
-
-#context-bar > input[type=text]:focus {
-  outline-color: #1e86ff;
 }
 
 #page-navigation > nav > ul { 
@@ -125,12 +163,14 @@ button.link {
 
 #page-navigation > nav > ul > li.active {
   border-color: #1e86ff;
-  color: #303446;
+  color: #444758;
   font-weight: bold;
 }
+/* -------- Page Navigation -------- */
 
 
-
-/* -------------- PURELY TESTING FOR STRUCTURAL BUILDING PURPOSES -------------- */
-
-/* -------------- PURELY TESTING FOR STRUCTURAL BUILDING PURPOSES -------------- */
+/* -------- Page Panel -------- */
+#page-panel {
+  flex-basis: 16rem;
+}
+/* -------- Page Panel -------- */
