@@ -27,21 +27,6 @@ header {
   border-bottom: 1px solid #edeff3;
 }
 
-/* -------- Brand -------- */
-#brand {
-  flex-basis: 16rem;
-}
-
-#brand {
-  border-right: 1px solid #edeff3;
-}
-
-#logo {
-  color: #1e86ff;
-  padding: 1rem 0 0 1rem;
-}
-/* -------- Brand -------- */
-
 ul { 
   list-style: none;
 }
@@ -51,13 +36,37 @@ ul {
   height: 24px;
 }
 
+/* -------- Brand -------- */
+#brand {
+  min-width: 16rem;
+  flex-basis: 16rem;
+  display: flex;
+  align-items: center;
+}
+
+#brand {
+  border-right: 1px solid #edeff3;
+}
+
+#logo {
+  color: #1e86ff;
+  padding: 0 0 0 2rem;
+  font-size: 40px;
+  text-transform: uppercase;
+}
+
+#logo > .icon > * {
+  height: 32px;
+}
+/* -------- Brand -------- */
+
+/* -------- User Navigation -------- */
 #context-bar {
   flex-grow: 1;
   display: flex;
   padding: 1rem 0 1rem 0;
 }
 
-/* -------- User Navigation -------- */
 #user-navigation {
   display: flex;
   flex-direction: row-reverse;
@@ -129,7 +138,7 @@ ul {
 #search-bar > input[type=text] {
   line-height: 1.5;
   margin: 0 0 0 3rem;
-  width: 450px;
+  width: 400px;
   border: 1px solid #e7eaee;
   color: #a7b0bc;
   padding: 0.5rem;
@@ -170,7 +179,41 @@ ul {
 
 
 /* -------- Page Panel -------- */
+
 #page-panel {
+  min-width: 16rem;
   flex-basis: 16rem;
+  background-color: white;
+  border-right: 1px solid #edeff3;
+  display: flex;
+  flex-direction: column;
+}
+
+#panel-navigation {
+  flex-grow: 1;
+}
+
+#panel-navigation ul {
+  margin: 0;
+  padding: 0;
+}
+
+#support,
+#panel-navigation li {
+  color: #99a5b9;
+  padding: 0.75rem 0 0.75rem 0;
+  display: flex;
+  align-items: center;
+}
+
+#page-panel .icon {
+  padding: 0 0 0 2rem;
+  margin: 0 0.25rem 0 0; 
+}
+
+#support.active,
+#panel-navigation li.active {
+  color: #1e86ff;
+  background-color: #f4f9ff;
 }
 /* -------- Page Panel -------- */
