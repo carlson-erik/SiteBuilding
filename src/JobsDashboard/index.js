@@ -3,6 +3,8 @@ import './css/reset.css';
 import './css/index.css';
 
 function JobsDashboard() {
+  // update document title
+  document.title = 'Join | Jobs';
   return (
     <div id="dashboard-container">
       <header>
