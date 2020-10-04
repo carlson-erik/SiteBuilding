@@ -5,9 +5,9 @@ import './css/index.css';
 
 function JobsDashboard() {
   // update document title
-  document.title = 'Join | Jobs';
+  document.title = 'Jobs List';
   return (
-    <div id="dashboard-container">
+    <div id="site-container">
       <header>
         <div id="brand">
           <h1 id='logo'>
@@ -16,7 +16,7 @@ function JobsDashboard() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
               </svg>
             </span>
-            Join
+            jobs
           </h1>
         </div>
         <div id="page-navigation">
@@ -40,7 +40,7 @@ function JobsDashboard() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                     </svg>
                   </span>
-                  Create new job
+                  Create job
                 </button>
                 <div id='user-profile'>
                   <img id='profile-icon' src={ProfilePicture} alt='User profile picture' />
@@ -121,7 +121,9 @@ function JobsDashboard() {
           </div>
         </div>
         <div id="page-content" >
-          page content
+          <div id='dashboard-container'>
+            content
+          </div>
         </div>
       </main>
     </div>

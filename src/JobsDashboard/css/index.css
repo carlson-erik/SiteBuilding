@@ -2,13 +2,12 @@ body {
   font-family: Helvetica;
 }
 
-#root, #dashboard-container {
+#root, #site-container {
   height: 100vh;
   width: 100%;
-  background-color: #fafbfd;
 }
 
-#dashboard-container {
+#site-container {
   display: flex;
   flex-direction: column;
 }
@@ -19,12 +18,13 @@ header, main {
 }
 
 main {
-  flex-grow: 1;
+  height: calc(100% - 8rem);
 }
 
 header {
   background-color: white;
   border-bottom: 1px solid #edeff3;
+  height: 8rem;
 }
 
 ul { 
@@ -64,7 +64,7 @@ ul {
 #context-bar {
   flex-grow: 1;
   display: flex;
-  padding: 1rem 0 1rem 0;
+  padding: 1rem 0 0 0;
 }
 
 #user-navigation {
@@ -80,6 +80,12 @@ ul {
 
 #user-navigation-links > * {
   margin: 0 0 0 2rem;
+}
+
+@media only screen and (max-width: 1175px) {
+  #user-navigation-links > a.link {
+    display: none;
+  }
 }
 
 #user-navigation-links .link {
@@ -134,7 +140,10 @@ ul {
 /* -------- Search -------- */
 #search-bar { 
   flex-grow: 1;
+  display: flex;
+  align-items: center;
 }
+
 #search-bar > input[type=text] {
   line-height: 1.5;
   margin: 0 0 0 3rem;
@@ -143,6 +152,12 @@ ul {
   color: #a7b0bc;
   padding: 0.5rem;
   border-radius: 4px;
+}
+
+@media only screen and (max-width: 1175px) {
+  #search-bar > input[type=text] {
+    width: 300px;
+  }
 }
 
 #search-bar > input[type=text]:focus {
@@ -217,3 +232,20 @@ ul {
   background-color: #f4f9ff;
 }
 /* -------- Page Panel -------- */
+
+/* -------- Page Content -------- */
+#page-content {
+  width: 100%;
+  /* background-color: #fafbfd; */
+  padding: 20px;
+  background-color: green;
+  display: flex;
+  overflow-y: auto;
+}
+
+#dashboard-container {
+  width: 100%;
+  height: 1000px;
+  background-color: lightcoral;
+}
+/* -------- Page Content -------- */
