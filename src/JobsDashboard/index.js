@@ -3,6 +3,51 @@ import ProfilePicture from './img/profile-picture.png'
 import './css/reset.css';
 import './css/index.css';
 
+const job_data = [
+  {
+    id: 'front-end-dev-1',
+    createDate: 'Feb 23, 2020',
+    label: 'Front-end Engineer',
+    location: 'Boston, MA',
+    candidates: 67,
+  },
+  {
+    id: 'front-end-dev-2',
+    createDate: 'March 3, 2020',
+    label: 'Senior Front-end Engineer',
+    location: 'Boston, MA',
+    candidates: 45,
+  },
+  {
+    id: 'ui-ux-designer-1',
+    createDate: 'April 17, 2020',
+    label: 'UI/UX Designer',
+    location: 'Atlanta, GA',
+    candidates: 19,
+  },
+  {
+    id: 'back-end-dev-1',
+    createDate: '02/23/20',
+    label: 'Back-end Engineer',
+    location: 'Portland, OR',
+    candidates: 3,
+  },
+  {
+    id: 'product-owner-1',
+    createDate: '02/23/20',
+    label: 'Product Owner',
+    location: 'Portland, OR',
+    candidates: 57,
+  },
+  {
+    id: 'ui-ux-designer-2',
+    createDate: '02/23/20',
+    label: 'UI/UX Designer',
+    location: 'San Francisco, CA',
+    candidates: 87,
+  },
+];
+
 function JobsDashboard() {
   // update document title
   document.title = 'Jobs List';
@@ -34,14 +79,16 @@ function JobsDashboard() {
                   </span>
                   Store
                 </a>
-                <button className='link'>
-                  <span className='icon'>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                    </svg>
-                  </span>
+                <a href="#" className='link-button'>
+                  <button className='link' tabIndex="-1">
+                    <span className='icon'>
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                      </svg>
+                    </span>
                   Create job
                 </button>
+                </a>
                 <div id='user-profile'>
                   <img id='profile-icon' src={ProfilePicture} alt='User profile picture' />
                   <span id='user-name'>Erik C.</span>
@@ -122,7 +169,48 @@ function JobsDashboard() {
         </div>
         <div id="page-content" >
           <div id='dashboard-container'>
-            content
+            <div className='card' id='dashboard-filter'>fitlter content here</div>
+            {job_data.map(job => {
+              const { id, label, location, createDate, candidates } = job;
+              return (
+                <div key={id} className='card job'>
+                  <div className='job-data'>
+                    <div className='data-column job-title'>
+                      <span className='job-label'>{label}</span>
+                      <span className='job-location'>{location}</span>
+                    </div>
+                    <div className='data-column'>
+                      <span>{createDate}</span>
+                    </div>
+                    <div className='data-column'>
+                      <span>{candidates}</span>
+                    </div>
+                  </div>
+                  <div className='actions'>
+                    <a href='#' className='link-button primary'>
+                      <button tabIndex="-1">
+                        <span className='icon'>
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
+                          </svg>
+                        </span>
+                      Promote
+                    </button>
+                    </a>
+                    <a href='#' className='link-button menu' tabIndex="-1">
+                      <button>
+                        <span className='icon'>
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+                          </svg>
+                        </span>
+                      </button>
+                    </a>
+                  </div>
+                </div>
+              )
+            })}
+            <footer>footer stuff</footer>
           </div>
         </div>
       </main>
