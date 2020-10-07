@@ -82,7 +82,7 @@ a:active > button {
   text-transform: uppercase;
 }
 
-#logo > .icon > * {
+#logo svg {
   height: 32px;
 }
 /* -------- Brand -------- */
@@ -317,6 +317,7 @@ a:active > button {
   margin-right: 1rem;
   background-color: white;
   border: 1px solid #edeff3;
+  color: #8f9cb2;
 }
 
 .job-data {
