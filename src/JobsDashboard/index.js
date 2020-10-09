@@ -1,4 +1,5 @@
 import React from 'react';
+import Select from 'react-dropdown-select';
 import ProfilePicture from './img/profile-picture.png'
 import './css/reset.css';
 import './css/index.css';
@@ -13,38 +14,82 @@ const job_data = [
   },
   {
     id: 'front-end-dev-2',
-    createDate: 'March 3, 2020',
+    createDate: 'Mar 3, 2020',
     label: 'Senior Front-end Engineer',
     location: 'Boston, MA',
     candidates: 45,
   },
   {
     id: 'ui-ux-designer-1',
-    createDate: 'April 17, 2020',
+    createDate: 'Apr 17, 2020',
     label: 'UI/UX Designer',
     location: 'Atlanta, GA',
     candidates: 19,
   },
   {
     id: 'back-end-dev-1',
-    createDate: '02/23/20',
+    createDate: 'Jul 5, 2020',
     label: 'Back-end Engineer',
     location: 'Portland, OR',
     candidates: 3,
   },
   {
     id: 'product-owner-1',
-    createDate: '02/23/20',
+    createDate: 'Jul 13, 2020',
     label: 'Product Owner',
     location: 'Portland, OR',
     candidates: 57,
   },
   {
     id: 'ui-ux-designer-2',
-    createDate: '02/23/20',
+    createDate: 'Oct 31, 2020',
     label: 'UI/UX Designer',
     location: 'San Francisco, CA',
     candidates: 87,
+  },
+  {
+    id: 'back-end-dev-2',
+    createDate: 'Feb 14, 2020',
+    label: 'Back-end Engineer',
+    location: '',
+    candidates: 14,
+  },
+  {
+    id: 'front-end-dev-3',
+    createDate: 'Mar 3, 2020',
+    label: 'Front-end Engineer',
+    location: 'Houston, TX',
+    candidates: 22,
+  },
+  {
+    id: 'ui-ux-designer-3',
+    createDate: 'Nov 11, 2020',
+    label: 'UI/UX Designer',
+    location: 'New York, NY',
+    candidates: 1,
+  },
+];
+
+const options = [
+  {
+    "id": "c8bd0fc1-e522-4d51-a1c8-66c2ab973df7",
+    "label": "German",
+    "value": "german",
+  },
+  {
+    "id": "ce54a958-9dd6-4ec6-a0a8-07651e3319ef",
+    "label": "English",
+    "value": "english",
+  },
+  {
+    "id": "aa30c740-98cb-4225-8dc6-58c56181ad01",
+    "label": "Italian",
+    "value": "italian",
+  },
+  {
+    "id": "a48sda34sd-98kh-4225-8yt6-58ggqd5ad01",
+    "label": "French",
+    "value": "french",
   },
 ];
 
@@ -168,10 +213,66 @@ function JobsDashboard() {
         <div id="page-content" >
           <div id='dashboard-container'>
             <div className='card' id='dashboard-filter'>
-              <div>All Jobs</div>
-              <div>Skills</div>
-              <div>Category</div>
-              <div>Date Range</div>
+              <div id='filter-container'>
+                <div className='filter'>
+                  <Select
+                    placeholder='All Jobs'
+                    options={[]}
+                    values={[]}
+                    onChange={(value) => console.log(value)}
+                  />
+                </div>
+                <div className='filter'>
+                  <Select
+                    multi
+                    keepOpen
+                    placeholder='Skills'
+                    options={options}
+                    values={[]}
+                    onChange={(value) => console.log(value)}
+                    itemRenderer={({ item, methods }) => {
+                      return (
+                        <div className='select-item'>
+                          {item.disabled ? (
+                            <div aria-disabled>{item.label}</div>
+                          ) : (
+                              <div onClick={() => methods.addItem(item)}>
+                                <input onChange={() => methods.addItem(item)} type="checkbox" checked={methods.isSelected(item)} /> {item.label}
+                              </div>
+                            )}
+                        </div>
+                      );
+                    }}
+                  />
+                </div>
+                <div className='filter'>
+                  <Select
+                    placeholder='Category'
+                    options={[]}
+                    values={[]}
+                    onChange={(value) => console.log(value)}
+                  />
+                </div>
+                <div className='filter'>
+                  <Select
+                    placeholder='Date Range'
+                    options={[]}
+                    values={[]}
+                    onChange={(value) => console.log(value)}
+                  />
+                </div>
+
+              </div>
+              <div id='show-all-filters'>
+                <a href="#" className='link'>
+                  Show all filters
+                  <span className='icon'>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </span>
+                </a>
+              </div>
             </div>
             {job_data.map(job => {
               const { id, label, location, createDate, candidates } = job;
@@ -186,7 +287,7 @@ function JobsDashboard() {
                       <span>{createDate}</span>
                     </div>
                     <div className='data-column'>
-                      <span>{candidates}</span>
+                      <span>{candidates} Candidates</span>
                     </div>
                   </div>
                   <div className='actions'>
@@ -213,7 +314,6 @@ function JobsDashboard() {
                 </div>
               )
             })}
-            <footer>footer stuff</footer>
           </div>
         </div>
       </main>
