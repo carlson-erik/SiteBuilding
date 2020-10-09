@@ -132,6 +132,7 @@ button.link {
 
 #user-navigation-links > *:first-child {
   margin: 0;
+  padding: 0.5rem;
 }
 
 #profile-icon {
@@ -161,28 +162,45 @@ button.link {
 /* -------- User Navigation -------- */
 
 /* -------- Search -------- */
-#search-bar { 
+#search-bar-container { 
   flex-grow: 1;
-  display: flex;
-  align-items: center;
 }
 
-#search-bar > input[type=text] {
-  line-height: 1.5;
-  margin: 0 0 0 3rem;
-  width: 400px;
+#search-bar {
+  display: flex;
+  align-items: center;
+  margin-left: 3rem;
+  background-color: white;
   border: 1px solid #e7eaee;
-  color: #a7b0bc;
-  padding: 0.5rem;
   border-radius: 0.5rem;
 }
 
+#search-bar .icon {
+  padding-left: 1rem;
+  color: #9faabd;
+}
+
+#search-bar .icon > * {
+  height: 20px;
+}
+
+#search-bar input[type=text] {
+  line-height: 1.5;
+  width: 100%;
+  border: none;
+  color: #a7b0bc;
+  padding: 0.5rem;
+}
+
+#search-bar input[type=text]:focus {
+  outline: none;
+}
+
 @media only screen and (max-width: 1175px) {
-  #search-bar > input[type=text] {
+  #search-bar {
     width: 300px;
   }
 }
-
 /* -------- Search -------- */
 
 /* -------- Page Navigation -------- */

@@ -109,8 +109,15 @@ function JobsDashboard() {
         </div>
         <div id="page-navigation">
           <div id='context-bar'>
-            <div id='search-bar'>
-              <input type="text" placeholder="Search for jobs, candidates, ..." />
+            <div id='search-bar-container'>
+              <div id='search-bar'>
+                <span className='icon'>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                </span>
+                <input type="text" placeholder="Search for jobs, candidates,.." />
+              </div>
             </div>
             <div id='user-navigation'>
               <div id='user-navigation-links'>
@@ -225,7 +232,6 @@ function JobsDashboard() {
                 <div className='filter'>
                   <Select
                     multi
-                    keepOpen
                     placeholder='Skills'
                     options={options}
                     values={[]}
