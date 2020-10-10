@@ -223,6 +223,11 @@ button.link {
   border-bottom: 2px solid transparent;
 }
 
+#page-navigation > nav > ul > li:hover {
+  border-color: #1e86ff;
+  color: #444758;
+}
+
 #page-navigation > nav > ul > li.active {
   border-color: #1e86ff;
   color: #444758;
@@ -250,6 +255,10 @@ button.link {
   padding: 0;
 }
 
+#panel-navigation a {
+  text-decoration: none;
+}
+
 #support,
 #panel-navigation li {
   color: #99a5b9;
@@ -264,6 +273,8 @@ button.link {
 }
 
 #support.active,
+#support:hover,
+#panel-navigation li:hover,
 #panel-navigation li.active {
   color: #1e86ff;
   background-color: #f4f9ff;
@@ -358,7 +369,8 @@ button.link {
 }
 
 .filter .select-item:hover {
-  background: #f2f2f2;
+  background-color: #f4f9ff;
+  color: #1e86ff;
 }
 
 .actions,
