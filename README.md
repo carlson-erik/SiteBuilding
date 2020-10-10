@@ -1,6 +1,20 @@
 # Site Building
 
-The goal of this project is to have one place where I can build cool designs I find across the web.
+The goal of this project is to have one place where I can build cool designs I find across the web and share that work.
+
+## Sites Built
+
+In this project, you'll find the following designs built out:
+
+### Jobs Dashboard
+
+This design is for a job recruiter platform that allows for the user to track their current job openings. The user can track the amount of candidates that have applied for their different job openings as well as other important information about it.
+
+**Design:** [Click here](https://dribbble.com/shots/9523083-Job-Ad-Dashboard-Hiring-Platform)
+
+**Implementation:** [Click here](http://localhost:3000/job-dashboard)
+
+**Disclaimer:** This was built with resolutions greater than **900px**. The design didn't have a mobile implementation so I didn't build one. A future project idea is to design and build the mobile version of this dashboard.
 
 ## Available Scripts
 
@@ -28,13 +42,3 @@ The build is minified and the filenames include the hashes.<br />
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
