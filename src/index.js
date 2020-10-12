@@ -9,7 +9,7 @@ import {
 import './global-styles/reset.css';
 import './global-styles/index.css';
 /* ------------ Site Components ------------ */
-import JobsDashboard from './JobsDashboard';
+import JobsDashboard from './jobs-dashboard';
 
 const Home = () => {
   return (
