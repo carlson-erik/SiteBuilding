@@ -1,8 +1,7 @@
 import React from 'react';
 import Select from 'react-dropdown-select';
 import ProfilePicture from './img/profile-picture.png'
-import './css/reset.css';
-import './css/index.css';
+import './index.css';
 
 const job_data = [
   {
