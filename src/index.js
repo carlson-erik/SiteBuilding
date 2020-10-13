@@ -6,8 +6,8 @@ import {
   Route
 } from "react-router-dom";
 /* ------------ Global Styles ------------ */
-import './global-styles/reset.css';
-import './global-styles/index.css';
+import './global/reset.css';
+import './global/index.css';
 /* ------------ Site Components ------------ */
 import JobsDashboard from './jobs-dashboard';
 
