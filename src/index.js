@@ -5,7 +5,11 @@ import {
   Switch,
   Route
 } from "react-router-dom";
-import JobsDashboard from './JobsDashboard';
+/* ------------ Global Styles ------------ */
+import './global/reset.css';
+import './global/index.css';
+/* ------------ Site Components ------------ */
+import JobsDashboard from './jobs-dashboard';
 
 const Home = () => {
   return (
