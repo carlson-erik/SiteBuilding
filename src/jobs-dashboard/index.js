@@ -1,7 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-/* ------------ Styles ------------ */
-import './index.css';
 /* ------------ Components ------------ */
 import Header from './components/header';
 import PagePanel from './components/page-panel';

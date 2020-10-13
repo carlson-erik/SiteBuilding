@@ -5,7 +5,7 @@ import Search from './search';
 /* ------------ Media Assets ------------ */
 import ProfilePicture from '../img/profile-picture.png'
 /* ------------ Styled Components ------------ */
-import { Link } from '../../global/styled-components/'; 
+import { Link, Icon, Button } from '../../global/styled-components/'; 
 const Container = styled.header`
   width: 100%;
   display: flex;
@@ -90,17 +90,11 @@ const UserLinks = styled.div`
   }
 `;
 
-const LinkButton = styled.button`
-  width: fit-content;
-  font-size: 16px;
-  display: flex;
-  align-items: center;
-  text-decoration: none;
+const LinkButton = styled(Button)`
   font-weight: bold;
   color: white;
   background-color: #1e86ff;
 `;
-
 
 const UserProfile = styled.div`
   display: flex;
@@ -128,7 +122,11 @@ const UserName = styled.span`
   }
 `;
 
-// const 
+const ShopLink = styled(Link)`
+  @media only screen and (max-width: 1175px) {
+    display: none;
+  }
+`;
 
 function Header() {
   return (
@@ -148,32 +146,32 @@ function Header() {
           </SearchContainer>
           <UserNavigation>
             <UserLinks>
-              <Link href="#">
-                <span className='icon'>
+              <ShopLink href="#">
+                <Icon>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                   </svg>
-                </span>
+                </Icon>
                 Store
-              </Link>
+              </ShopLink>
               <Link href="#">
                 <LinkButton tabIndex="-1">
-                    <span className='icon'>
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                      </svg>
-                    </span>
+                  <Icon>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                    </svg>
+                  </Icon>
                   Create job
                 </LinkButton>
               </Link>
               <UserProfile>
                 <ProfileIcon src={ProfilePicture} alt='User profile picture' />
                 <UserName>Erik C.</UserName>
-                <span className='icon'>
+                <Icon>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
-                </span>
+                </Icon>
               </UserProfile>
             </UserLinks>
           </UserNavigation>

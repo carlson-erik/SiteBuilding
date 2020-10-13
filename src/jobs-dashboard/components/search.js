@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 /* ------------ Styled Components ------------ */
+import { Icon } from '../../global/styled-components/';
 const SearchBar = styled.div`
   display: flex;
   align-items: center;
@@ -8,14 +9,14 @@ const SearchBar = styled.div`
   background-color: white;
   border: 1px solid #e7eaee;
   border-radius: 0.5rem;
+`;
 
-  & .icon {
-    padding-left: 1rem;
-    color: #9faabd;
-  }
+const SearchIcon = styled(Icon)`
+  padding-left: 1rem;
+  color: #9faabd;
 
-  & .icon > * {
-    height: 20px;
+  & > svg {
+    height: 20px
   }
 `;
 
@@ -38,11 +39,11 @@ const SearchInput = styled.input`
 function Search() {
   return (
     <SearchBar>
-      <span className='icon'>
+      <SearchIcon>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
         </svg>
-      </span>
+      </SearchIcon>
       <SearchInput type="text" placeholder="Search for jobs, candidates,.." />
     </SearchBar>
   );

@@ -2,7 +2,7 @@ import React from 'react';
 import Select from 'react-dropdown-select';
 import styled from 'styled-components';
 /* ------------ Styled Components ------------ */
-import { Link } from '../../global/styled-components/';
+import { Link, Icon, Button } from '../../global/styled-components/';
 const Card = styled.div`
   background-color: white;
   border: 1px solid #edeff3;
@@ -35,10 +35,6 @@ const ShowAllContainer = styled.div`
   display: flex;
   padding: 0 0 1rem 1rem;
   align-self: flex-end;
-
-  & .icon {
-    color: #9faabd;
-  } 
 `;
 
 const Filter = styled.div`
@@ -117,6 +113,29 @@ const JobLabel = styled.span`
 
 const JobLocation = styled.span`
   color: #bac2d0;
+`;
+
+const Actions = styled.div`
+  display: flex;
+  align-items: center;
+  border-left: 1px solid #edeff3;
+`;
+
+const PrimaryLink = styled(Link)`
+  margin: 0 1rem 0 1rem;
+`;
+
+const PrimaryButton = styled(Button)`
+  background-color: #e8f2ff;
+  color: #1e86ff;
+`;
+
+const MenuButton = styled(Button)`
+  padding: 0.25rem 0.5rem 0.25rem 0.5rem; 
+  margin-right: 1rem;
+  border: 1px solid #edeff3;
+  background-color: white;
+  color: #8f9cb2;
 `;
 
 /* ------------ Render Data ------------ */
@@ -265,11 +284,11 @@ function FilterTable() {
         <ShowAllContainer>
           <Link>
             Show all filters
-                  <span className='icon'>
+            <Icon color='#9faabd'>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>
-            </span>
+            </Icon>
           </Link>
         </ShowAllContainer>
       </DashboardFilter>
@@ -289,27 +308,27 @@ function FilterTable() {
                 <span>{candidates} Candidates</span>
               </DataColumn>
             </JobDataContainer>
-            <div className='actions'>
-              <a href='#' className='link-button primary'>
-                <button tabIndex="-1">
-                  <span className='icon'>
+            <Actions>
+              <PrimaryLink href='#'>
+                <PrimaryButton tabIndex="-1">
+                  <Icon>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
                     </svg>
-                  </span>
-                      Promote
-                    </button>
-              </a>
-              <a href='#' className='link-button menu' tabIndex="-1">
-                <button>
-                  <span className='icon'>
+                  </Icon>
+                  Promote
+                </PrimaryButton>
+              </PrimaryLink>
+              <Link href='#' tabIndex="-1">
+                <MenuButton>
+                  <Icon>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
                     </svg>
-                  </span>
-                </button>
-              </a>
-            </div>
+                  </Icon>
+                </MenuButton>
+              </Link>
+            </Actions>
           </JobCard>
         )
       })}
