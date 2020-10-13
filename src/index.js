@@ -10,6 +10,7 @@ import './global/reset.css';
 import './global/index.css';
 /* ------------ Site Components ------------ */
 import JobsDashboard from './jobs-dashboard';
+import HREvents from './hr-events';
 
 const Home = () => {
   return (
@@ -26,6 +27,9 @@ ReactDOM.render(
       <Switch>
         <Route path='/job-dashboard'>
           <JobsDashboard />
+        </Route>
+        <Route path='/events-calendar'>
+          <HREvents />
         </Route>
         <Route path='/'>
           <Home />
