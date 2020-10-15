@@ -1,32 +1,24 @@
 import React from 'react';
 import styled from 'styled-components';
+import PagePanel from './components/page-panel'; 
+import Calendar from './components/calendar';
 /* ------------ Styled Components ------------ */
 const SiteContainer = styled.div`
   height: 100vh;
   width: 100%;
   display: flex;
+  font-family: 'Poppins', sans-serif;
 `;
 
 const PanelContainer = styled.div`
   min-width: 16rem;
-  background-color: white;
-  border-right: 1px solid #edeff3;
+  height: 100%;
 `;
 
 const Main = styled.div`
   flex-grow: 1;
   padding: 1rem;
-`;
-
-const ContentHeader = styled.header`
-  height: 3rem;
-  margin: 0 0 1rem 0;
-`;
-
-const CalendarContainer = styled.div`
-  width: 100%;
-  height: calc(100% - 4rem);
-  background-color: lightgreen;
+  background-color: #eeeff1;
 `;
 
 function HREvents() {
@@ -35,15 +27,10 @@ function HREvents() {
   return (
     <SiteContainer>
       <PanelContainer>
-        Page Panel
+        <PagePanel />
       </PanelContainer>
       <Main>
-        <ContentHeader>
-          <h1>Events</h1>
-        </ContentHeader>
-        <CalendarContainer>
-          Events Calendar Content
-        </CalendarContainer>
+        <Calendar />
       </Main>
     </SiteContainer>
   )
