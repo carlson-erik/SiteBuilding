@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 /* ------------ Styled Components ------------ */
 const ContentHeader = styled.header`
@@ -102,7 +102,116 @@ const daysOfWeek = [
   }
 ];
 
+const YEAR = 2020;
+
+const isLeapYear = YEAR % 4 === 0;
+
+const firstDaysOfMonth = [
+  {
+    month: 'January',
+    length: 31,
+    firstDayIndex: 3
+  },
+  {
+    month: 'February',
+    length: isLeapYear ? 29: 28,
+    firstDayIndex: 6,
+  },
+  {
+    month: 'March',
+    length: 31,
+    firstDayIndex: 0,
+  },
+  {
+    month: 'April',
+    length: 30,
+    firstDayIndex: 3
+  },
+  {
+    month: 'May',
+    length: 31,
+    firstDayIndex: 5
+  },
+  {
+    month: 'June',
+    length: 30,
+    firstDayIndex: 1
+  },
+  {
+    month: 'July',
+    length: 31,
+    firstDayIndex: 3
+  },
+  {
+    month: 'August',
+    length: 31,
+    firstDayIndex: 6
+  },
+  {
+    month: 'September',
+    length: 30,
+    firstDayIndex: 2
+  },
+  {
+    month: 'October',
+    length: 31,
+    firstDayIndex: 4
+  },
+  {
+    month: 'November',
+    length: 30,
+    firstDayIndex: 0
+  },
+  {
+    month: 'December',
+    length: 31,
+    firstDayIndex: 2
+  },
+]
+
+function getMonthDates(month){
+  const {length, firstDayIndex} = month;
+
+  const monthDates = [];
+
+  if(firstDayIndex > 0 ){
+    for(let i = 0; i < firstDayIndex; i++){
+      monthDates.push({
+        date: 0,
+        events: [],
+      });
+    }
+  }
+
+  let weekDay = monthDates.length;
+
+  for( let i = 1; i <= length; i ++){
+    monthDates.push({
+      date: i,
+      day: daysOfWeek[weekDay++ % 7],
+      events: []
+    })
+  }
+
+  if(length + firstDayIndex !== 35 ){
+    for(let i = 0; i < (35 - (length + firstDayIndex)); i++){
+      monthDates.push({
+        date: 0,
+        events: [],
+      });
+    }
+  }
+
+  return monthDates;
+}
+
 function Calendar() {
+  const [monthIndex, setMonthIndex] = useState(9);
+
+  console.log('firstDaysOfMonth:', firstDaysOfMonth);
+  console.log('currentMonth:\n', firstDaysOfMonth[monthIndex])
+  console.log('current month dates:\n', getMonthDates(firstDaysOfMonth[monthIndex]));
+  
   return (
     <React.Fragment>
       <ContentHeader>
