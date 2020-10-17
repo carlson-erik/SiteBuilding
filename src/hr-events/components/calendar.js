@@ -25,6 +25,7 @@ const CalendarContainer = styled.div`
   padding: 1rem;
   display: flex;
   flex-direction: column;
+  color: #7d9eb5;
 `;
 
 const Row = styled.div`
@@ -34,10 +35,16 @@ const Row = styled.div`
 
 const DateRow = styled(Row)`
   height: 3rem;
+  border-top: 1px solid #dfe7ee;
 `;
 
 const CalendarRow = styled(Row)`
+  border-top: 1px solid #dfe7ee;
   flex: 1 0 ${props => props.hasEvents ? '20%' : '5%'};
+  ${props => !props.hasEvents ? 'max-height: 8rem;' : ''}
+  ${props => props.lastRow ? `
+  border-bottom: 1px solid #dfe7ee;
+  `: ''}
 `;
 
 const Cell = styled.div`
@@ -46,9 +53,14 @@ const Cell = styled.div`
 `;
 
 const BodyCell = styled(Cell)`
-  border: 1px solid #dfe7ee;
+  border-right: 1px solid #dfe7ee;
   flex-direction: column;
   display: flex;
+  height: 100%;
+
+  ${props => props.firstCell ? `
+    border-left: 1px solid #dfe7ee;
+  `: ''}
 `;
 
 const HeaderCell = styled(Cell)`
@@ -56,7 +68,6 @@ const HeaderCell = styled(Cell)`
   align-items: center;
   justify-content: center;
   border-right: 1px solid #dfe7ee;
-  border-top: 1px solid #dfe7ee;
 
   ${props => props.firstCell ? `
     border-left: 1px solid #dfe7ee;
@@ -82,68 +93,88 @@ const CalendarBody = styled.div`
 
 const CellDateRow = styled(Row)`
   padding: 0.25rem 0 0 0.5rem;
+  height: 2rem;
 `;
 
 const CellBodyRow = styled(Row)`
   display: flex;
-  flex-direction: column;
+  flex-grow: 1;
+  flex-direction: row;
+`;
+
+const EventsList = styled.div`
+  display: flex;
+  flex-grow: 1;
+  flex-direction:column;
+  height: 100%;
+  color:red;
 `;
 
 const EventContainer = styled.div`
   width: 100%;
   font-size: 14px;
+  min-height: 1.25rem;
   background-color: ${props => props.secondaryColor || '#e4e7f4'};
   border-top: 3px solid ${props => props.primeColor || '#5670ee'};
   color: ${props => props.primeColor || '#5670ee'};
-  
+
   ${props => props.multipleEvents
-    ? `
-    margin-bottom: 0.25rem;
-    
-    & > * {
-      padding: 0.25rem 0 0.25rem 0.5rem;
-    }
-    `
-    : ''
+    ? `margin-bottom: 0.25rem;`
+    : `flex-grow: 1;`
   }
 `;
 
 const EventTime = styled.div`
+  padding: 0.25rem 0 0.25rem 0.5rem;
 `;
 
 const EventDescription = styled.div`
-font-weight: 500;
+  font-weight: 500;
+  padding: 0 0 0 0.5rem;
 `;
 
 function CalendarCell(props) {
-  const { day, events} = props;
+  const { day, dayIndex, events } = props;
   return (
-    <BodyCell>
+    <BodyCell
+      firstCell={dayIndex === 0}
+    >
       {day.date !== 0
         ? <React.Fragment>
           <CellDateRow>{day.date}</CellDateRow>
           <CellBodyRow hasEvents={events && events.length >= 1}>
-            { events
-              ? events.map( event => {
-                const primeColor = event.colors && event.colors.prime ? event.colors.prime : null;
-                const secondaryColor = event.colors && event.colors.secondary ? event.colors.secondary : null;
-                return(
-                  <EventContainer 
-                    key={event.id} 
-                    multipleEvents={events.length > 1}
-                    primeColor={primeColor}
-                    secondaryColor={secondaryColor}
-                  >
-                    <EventTime>{event.time}</EventTime>
-                    {events.length <= 2 
-                      ? <EventDescription>{event.shortDescription}</EventDescription>
-                      : null
-                    }
-                  </EventContainer>
-                )
-              })
-              : null
-            }
+            <EventsList>
+              {events
+                ? events.map((event, index) => {
+                  const primeColor = event.colors && event.colors.prime ? event.colors.prime : null;
+                  const secondaryColor = event.colors && event.colors.secondary ? event.colors.secondary : null;
+
+                  // Only really need to show a couple of events to draw a click
+                  if(events.length > 4 && index > 4){
+                    return null;
+                  }
+
+                  return (
+                    <EventContainer
+                      key={event.id}
+                      multipleEvents={events.length > 1}
+                      primeColor={primeColor}
+                      secondaryColor={secondaryColor}
+                    >
+                      {events.length <= 2
+                        ? <EventTime>{event.time}</EventTime>
+                        : null
+                      }
+                      {events.length < 2
+                        ? <EventDescription>{event.shortDescription}</EventDescription>
+                        : null
+                      }
+                    </EventContainer>
+                  )
+                })
+                : null
+              }
+            </EventsList>
           </CellBodyRow>
         </React.Fragment>
         : null
@@ -157,26 +188,83 @@ function Calendar() {
   const [monthIndex, setMonthIndex] = useState(9);
   const { monthWeeks } = getMonthDates(monthFirstDay_2020[monthIndex]);
   const userEvents = {
-    '10-4': [{
-      id: '18df-99ax-21vk-lmmk',
-      time: '17:30 PM',
-      shortDescription: 'Meeting with boss',
+    '10-4': [
+      {
+        id: '18df-99ax-21vk-lmmk',
+        time: '17:30 PM',
+        shortDescription: '1-on-1 with Manager',
+        colors: {
+          prime: '#ea293b',
+          secondary: '#f3e0e1',
+        }
+      }
+    ],
+    '10-9': [
+      {
+        id: '18df-99ax-21vk-lmmk',
+        time: '11:00 AM',
+        shortDescription: 'Performance Review',
+        colors: {
+          prime: '#ea293b', // red
+          secondary: '#f3e0e1', // red
+        }
+      },
+      {
+        id: '18df-99ax-21vk-jjd7',
+        time: '16:00 PM',
+        shortDescription: 'Client Meeting',
+        colors: {
+          prime: '#ff9931', // orange
+          secondary: '#fff4ea', // orange
+        }
+      },
+      {
+        id: '18df-99ax-21vk-jjd7',
+        time: '16:00 PM',
+        shortDescription: 'Code Review',
+      },
+      {
+        id: '18df-99ax-21vk-jjd7',
+        time: '16:00 PM',
+        shortDescription: 'DevOps Meeting',
+        colors: {
+          prime: '#07c180', // green
+          secondary: '#e6f8f2', // green
+        }
+      }
+    ],
+    '10-16': [
+      {
+        id: '18df-99ax-21vk-lmmk',
+        time: '11:00 AM',
+        shortDescription: 'Tasking Session',
+      },
+      {
+        id: '18df-99ax-21vk-jjd7',
+        time: '16:00 PM',
+        shortDescription: 'Code Review',
+      }
+    ],
+    '10-20': [
+      {
+        id: '18df-99ax-28kk-ksdm',
+        time: '10:15 AM',
+        shortDescription: 'Client Meeting',
+        colors: {
+          prime: '#ff9931', // orange
+          secondary: '#fff4ea', // orange
+        }
+      }
+    ],
+    '10-29': [{
+      id: '18df-99ax-92ks-jdas',
+      time: '13:30 PM',
+      shortDescription: 'Project Release Meeting',
       colors: {
-        prime: '#ea293b', // default: #5670ee
-        secondary: '#f3e0e1', // default: #e4e7f4
+        prime: '#07c180', // green
+        secondary: '#e6f8f2', // green
       }
     }],
-    '10-9': [{
-      id: '18df-99ax-21vk-lmmk',
-      time: '13:30 PM',
-      shortDescription: 'Tasking Session',
-    },
-    {
-      id: '18df-99ax-21vk-jjd7',
-      time: '15:30 PM',
-      shortDescription: 'Code Review',
-    }
-  ],
   };
   return (
     <React.Fragment>
@@ -202,12 +290,14 @@ function Calendar() {
           </DateRow>
           <CalendarBody>
             {monthWeeks.map((week, weekIndex) => (
-              <CalendarRow key={`week-${weekIndex}`}>
+              <CalendarRow 
+              key={`week-${weekIndex}`} 
+              lastRow={weekIndex === monthWeeks.length-1} >
                 {week.map((day, dayIndex) =>
-                  <CalendarCell 
+                  <CalendarCell
                     key={`week-${weekIndex}-${dayIndex}`}
-                    day={day} 
-                    dayIndex={dayIndex} 
+                    day={day}
+                    dayIndex={dayIndex}
                     events={userEvents[`${monthIndex + 1}-${day.date}`]}
                   />
                 )}
