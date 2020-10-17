@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+/* ------------ Static Values & Functions ------------ */
+import { getMonthDates } from '../utils';
+import { monthFirstDay_2020, daysOfWeek } from '../constants';
 /* ------------ Styled Components ------------ */
 const ContentHeader = styled.header`
   height: 3rem;
@@ -34,12 +37,18 @@ const DateRow = styled(Row)`
 `;
 
 const CalendarRow = styled(Row)`
-  flex-grow: 1;
+  flex: 1 0 ${props => props.hasEvents ? '20%' : '5%'};
 `;
 
 const Cell = styled.div`
   flex: 1 0 14%;
-  height: 100%;
+  display: flex;
+`;
+
+const BodyCell = styled(Cell)`
+  border: 1px solid #dfe7ee;
+  flex-direction: column;
+  display: flex;
 `;
 
 const HeaderCell = styled(Cell)`
@@ -71,147 +80,104 @@ const CalendarBody = styled.div`
   flex-direction: column;
 `;
 
-const daysOfWeek = [
-  {
-    label: 'Sun',
-    key: 'sunday'
-  },
-  {
-    label: 'Mon',
-    key: 'monday'
-  },
-  {
-    label: 'Tues',
-    key: 'tuesday'
-  },
-  {
-    label: 'Wed',
-    key: 'wednesday'
-  },
-  {
-    label: 'Thu',
-    key: 'thursday'
-  },
-  {
-    label: 'Fri',
-    key: 'friday'
-  },
-  {
-    label: 'Sat',
-    key: 'saturday'
-  }
-];
+const CellDateRow = styled(Row)`
+  padding: 0.25rem 0 0 0.5rem;
+`;
 
-const YEAR = 2020;
+const CellBodyRow = styled(Row)`
+  display: flex;
+  flex-direction: column;
+`;
 
-const isLeapYear = YEAR % 4 === 0;
-
-const firstDaysOfMonth = [
-  {
-    month: 'January',
-    length: 31,
-    firstDayIndex: 3
-  },
-  {
-    month: 'February',
-    length: isLeapYear ? 29: 28,
-    firstDayIndex: 6,
-  },
-  {
-    month: 'March',
-    length: 31,
-    firstDayIndex: 0,
-  },
-  {
-    month: 'April',
-    length: 30,
-    firstDayIndex: 3
-  },
-  {
-    month: 'May',
-    length: 31,
-    firstDayIndex: 5
-  },
-  {
-    month: 'June',
-    length: 30,
-    firstDayIndex: 1
-  },
-  {
-    month: 'July',
-    length: 31,
-    firstDayIndex: 3
-  },
-  {
-    month: 'August',
-    length: 31,
-    firstDayIndex: 6
-  },
-  {
-    month: 'September',
-    length: 30,
-    firstDayIndex: 2
-  },
-  {
-    month: 'October',
-    length: 31,
-    firstDayIndex: 4
-  },
-  {
-    month: 'November',
-    length: 30,
-    firstDayIndex: 0
-  },
-  {
-    month: 'December',
-    length: 31,
-    firstDayIndex: 2
-  },
-]
-
-function getMonthDates(month){
-  const {length, firstDayIndex} = month;
-
-  const monthDates = [];
-
-  if(firstDayIndex > 0 ){
-    for(let i = 0; i < firstDayIndex; i++){
-      monthDates.push({
-        date: 0,
-        events: [],
-      });
+const EventContainer = styled.div`
+  width: 100%;
+  font-size: 14px;
+  background-color: ${props => props.secondaryColor || '#e4e7f4'};
+  border-top: 3px solid ${props => props.primeColor || '#5670ee'};
+  color: ${props => props.primeColor || '#5670ee'};
+  
+  ${props => props.multipleEvents
+    ? `
+    margin-bottom: 0.25rem;
+    
+    & > * {
+      padding: 0.25rem 0 0.25rem 0.5rem;
     }
+    `
+    : ''
   }
+`;
 
-  let weekDay = monthDates.length;
+const EventTime = styled.div`
+`;
 
-  for( let i = 1; i <= length; i ++){
-    monthDates.push({
-      date: i,
-      day: daysOfWeek[weekDay++ % 7],
-      events: []
-    })
-  }
+const EventDescription = styled.div`
+font-weight: 500;
+`;
 
-  if(length + firstDayIndex !== 35 ){
-    for(let i = 0; i < (35 - (length + firstDayIndex)); i++){
-      monthDates.push({
-        date: 0,
-        events: [],
-      });
-    }
-  }
-
-  return monthDates;
+function CalendarCell(props) {
+  const { day, events} = props;
+  return (
+    <BodyCell>
+      {day.date !== 0
+        ? <React.Fragment>
+          <CellDateRow>{day.date}</CellDateRow>
+          <CellBodyRow hasEvents={events && events.length >= 1}>
+            { events
+              ? events.map( event => {
+                const primeColor = event.colors && event.colors.prime ? event.colors.prime : null;
+                const secondaryColor = event.colors && event.colors.secondary ? event.colors.secondary : null;
+                return(
+                  <EventContainer 
+                    key={event.id} 
+                    multipleEvents={events.length > 1}
+                    primeColor={primeColor}
+                    secondaryColor={secondaryColor}
+                  >
+                    <EventTime>{event.time}</EventTime>
+                    {events.length <= 2 
+                      ? <EventDescription>{event.shortDescription}</EventDescription>
+                      : null
+                    }
+                  </EventContainer>
+                )
+              })
+              : null
+            }
+          </CellBodyRow>
+        </React.Fragment>
+        : null
+      }
+    </BodyCell>
+  )
 }
 
+/* ------------ Component ------------ */
 function Calendar() {
   const [monthIndex, setMonthIndex] = useState(9);
-
-  console.log('firstDaysOfMonth:', firstDaysOfMonth);
-  console.log('currentMonth:\n', firstDaysOfMonth[monthIndex])
-  console.log('current month dates:\n', getMonthDates(firstDaysOfMonth[monthIndex]));
-  
+  const { monthWeeks } = getMonthDates(monthFirstDay_2020[monthIndex]);
+  const userEvents = {
+    '10-4': [{
+      id: '18df-99ax-21vk-lmmk',
+      time: '17:30 PM',
+      shortDescription: 'Meeting with boss',
+      colors: {
+        prime: '#ea293b', // default: #5670ee
+        secondary: '#f3e0e1', // default: #e4e7f4
+      }
+    }],
+    '10-9': [{
+      id: '18df-99ax-21vk-lmmk',
+      time: '13:30 PM',
+      shortDescription: 'Tasking Session',
+    },
+    {
+      id: '18df-99ax-21vk-jjd7',
+      time: '15:30 PM',
+      shortDescription: 'Code Review',
+    }
+  ],
+  };
   return (
     <React.Fragment>
       <ContentHeader>
@@ -223,10 +189,10 @@ function Calendar() {
         <CalendarContainer>
           <DateRow>
             {daysOfWeek.map((day, index) => (
-              <HeaderCell 
-                key={day.key} 
+              <HeaderCell
+                key={day.key}
                 firstCell={index === 0}
-                lastCell={index === daysOfWeek.length-1}
+                lastCell={index === daysOfWeek.length - 1}
               >
                 <Label>
                   {day.label}
@@ -235,11 +201,18 @@ function Calendar() {
             ))}
           </DateRow>
           <CalendarBody>
-            <CalendarRow>Week Data Here</CalendarRow>
-            <CalendarRow>Week Data Here</CalendarRow>
-            <CalendarRow>Week Data Here</CalendarRow>
-            <CalendarRow>Week Data Here</CalendarRow>
-            <CalendarRow>Week Data Here</CalendarRow>
+            {monthWeeks.map((week, weekIndex) => (
+              <CalendarRow key={`week-${weekIndex}`}>
+                {week.map((day, dayIndex) =>
+                  <CalendarCell 
+                    key={`week-${weekIndex}-${dayIndex}`}
+                    day={day} 
+                    dayIndex={dayIndex} 
+                    events={userEvents[`${monthIndex + 1}-${day.date}`]}
+                  />
+                )}
+              </CalendarRow>
+            ))}
           </CalendarBody>
         </CalendarContainer>
       </ContentContainer>
