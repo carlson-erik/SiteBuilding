@@ -11,7 +11,6 @@ function getMonthDates(month) {
     for (let i = 0; i < firstDayIndex; i++) {
       monthDates.push({
         date: 0,
-        
       });
       monthWeeks[weekCounter].push({
         date: 0,
@@ -26,7 +25,6 @@ function getMonthDates(month) {
         weekCounter++;
       }
     }
-
     monthDates.push({
       date: i + 1,
       day: daysOfWeek[weekDay % 7],
@@ -40,12 +38,11 @@ function getMonthDates(month) {
     weekDay++;
   }
 
-  if (length + firstDayIndex !== 35) {
-    for (let i = 0; i < (35 - (length + firstDayIndex)); i++) {
-      monthDates.push({
-        date: 0,
-        
-      });
+  if (monthWeeks[weekCounter].length < 7) {
+    for (let i = monthWeeks[weekCounter].length; i < 7; i++) {
+      monthDates.push({date: 0});
+
+      monthWeeks[weekCounter].push({date: 0});
     }
   }
 

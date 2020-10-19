@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 /* ------------ Static Values & Functions ------------ */
 import { getMonthDates } from '../utils';
-import { monthFirstDay_2020, daysOfWeek } from '../constants';
+import { monthFirstDay_2020, daysOfWeek, YEAR } from '../constants';
 /* ------------ Styled Components ------------ */
+import { Button, Icon, Link } from '../../global/styled-components';
 const ContentHeader = styled.header`
   height: 3rem;
 `;
@@ -11,18 +12,20 @@ const ContentHeader = styled.header`
 const ContentContainer = styled.div`
   width: 100%;
   height: calc(100% - 3rem);
-  background-color: #f5f5f5;
+  background-color: #ffffff;
   max-width: 1260px;
+  display: flex;
+  flex-direction: column;
 `;
 
-const EventsText = styled.h2`
-  font-weight: 600;
+const PageHeaderText = styled.h2`
+font-weight: 600;
 `;
 
 const CalendarContainer = styled.div`
-  height: 100%;
+  flex-grow: 1;
   width: 100%;
-  padding: 1rem;
+  padding: 0 1rem 1rem 1rem;
   display: flex;
   flex-direction: column;
   color: #7d9eb5;
@@ -133,6 +136,39 @@ const EventDescription = styled.div`
   padding: 0 0 0 0.5rem;
 `;
 
+const CalendarControls = styled.div`
+  width: 100%;
+  display:flex;
+  align-items: center;
+`;
+
+const MonthLabel = styled.h3`
+  padding: 1rem 1rem 1rem 1rem;
+  min-width: 12rem;
+`;
+
+const CalendarButton = styled(Button)`
+  padding: 0.25rem 0.5rem 0.25rem 0.5rem; 
+  border: 1px solid #4a7189;
+  background-color: white;
+  color: #4a7189;
+  font-weight: 500;
+  font-size: 14px;
+
+  &:focus {
+    outline-color: #8f9cb2;
+  }
+`;
+
+const ArrowButton = styled(CalendarButton)`
+padding: 0.25rem 0 0.25rem 0; ; 
+`;
+
+const MonthSelectors = styled.div`
+  display: flex;
+  padding-right: 1rem;
+`;
+
 function CalendarCell(props) {
   const { day, dayIndex, events } = props;
   return (
@@ -150,7 +186,7 @@ function CalendarCell(props) {
                   const secondaryColor = event.colors && event.colors.secondary ? event.colors.secondary : null;
 
                   // Only really need to show a couple of events to draw a click
-                  if(events.length > 4 && index > 4){
+                  if (events.length > 4 && index > 4) {
                     return null;
                   }
 
@@ -186,7 +222,8 @@ function CalendarCell(props) {
 /* ------------ Component ------------ */
 function Calendar() {
   const [monthIndex, setMonthIndex] = useState(9);
-  const { monthWeeks } = getMonthDates(monthFirstDay_2020[monthIndex]);
+  const month = monthFirstDay_2020[monthIndex];
+  const { monthWeeks } = getMonthDates(month);
   const userEvents = {
     '10-4': [
       {
@@ -266,22 +303,63 @@ function Calendar() {
       }
     }],
   };
+
+  const decreaseMonth = () => {
+    if(!(monthIndex - 1 < 0) ){
+      setMonthIndex(monthIndex - 1);
+    }
+  };
+
+  const increaseMonth = () => {
+    if(!(monthIndex + 1 > 11) ){
+      setMonthIndex(monthIndex + 1);
+    }
+  };
+
   return (
     <React.Fragment>
       <ContentHeader>
-        <EventsText>
+        <PageHeaderText>
           Events
-        </EventsText>
+        </PageHeaderText>
       </ContentHeader>
       <ContentContainer>
+        <CalendarControls>
+          <MonthLabel>{month.label} {YEAR}</MonthLabel>
+          <MonthSelectors>
+            <Link>
+              <ArrowButton onClick={() => decreaseMonth()}>
+                <Icon color='#4a7189'>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                  </svg>
+                </Icon>
+              </ArrowButton>
+            </Link>
+            <Link>
+              <ArrowButton onClick={() => increaseMonth()}>
+                <Icon color='#4a7189'>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </Icon>
+              </ArrowButton>
+            </Link>
+          </MonthSelectors>
+          <Link>
+            <CalendarButton>
+              Today
+            </CalendarButton>
+          </Link>
+
+        </CalendarControls>
         <CalendarContainer>
           <DateRow>
             {daysOfWeek.map((day, index) => (
               <HeaderCell
                 key={day.key}
                 firstCell={index === 0}
-                lastCell={index === daysOfWeek.length - 1}
-              >
+                lastCell={index === daysOfWeek.length - 1}>
                 <Label>
                   {day.label}
                 </Label>
@@ -290,9 +368,9 @@ function Calendar() {
           </DateRow>
           <CalendarBody>
             {monthWeeks.map((week, weekIndex) => (
-              <CalendarRow 
-              key={`week-${weekIndex}`} 
-              lastRow={weekIndex === monthWeeks.length-1} >
+              <CalendarRow
+                key={`week-${weekIndex}`}
+                lastRow={weekIndex === monthWeeks.length - 1} >
                 {week.map((day, dayIndex) =>
                   <CalendarCell
                     key={`week-${weekIndex}-${dayIndex}`}

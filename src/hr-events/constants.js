@@ -36,62 +36,62 @@ const daysOfWeek = [
 
 const monthFirstDay_2020 = [
   {
-    month: 'January',
+    label: 'January',
     length: 31,
     firstDayIndex: 3
   },
   {
-    month: 'February',
+    label: 'February',
     length: isLeapYear ? 29 : 28,
     firstDayIndex: 6,
   },
   {
-    month: 'March',
+    label: 'March',
     length: 31,
     firstDayIndex: 0,
   },
   {
-    month: 'April',
+    label: 'April',
     length: 30,
     firstDayIndex: 3
   },
   {
-    month: 'May',
+    label: 'May',
     length: 31,
     firstDayIndex: 5
   },
   {
-    month: 'June',
+    label: 'June',
     length: 30,
     firstDayIndex: 1
   },
   {
-    month: 'July',
+    label: 'July',
     length: 31,
     firstDayIndex: 3
   },
   {
-    month: 'August',
+    label: 'August',
     length: 31,
     firstDayIndex: 6
   },
   {
-    month: 'September',
+    label: 'September',
     length: 30,
     firstDayIndex: 2
   },
   {
-    month: 'October',
+    label: 'October',
     length: 31,
     firstDayIndex: 4
   },
   {
-    month: 'November',
+    label: 'November',
     length: 30,
     firstDayIndex: 0
   },
   {
-    month: 'December',
+    label: 'December',
     length: 31,
     firstDayIndex: 2
   },
